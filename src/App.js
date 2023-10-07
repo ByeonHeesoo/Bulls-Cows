@@ -19,7 +19,10 @@ function App() {
   }
 
   // 랜덤 숫자와 입력한 답 맞춰보기
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    
+    e.preventDefault();
+
     const answers = answer.split('').map(item => Number(item)); // 입력한 숫자를 배열로 바꾸기
 
     //숫자가 아닌 값을 입력했을 때
@@ -96,16 +99,18 @@ function App() {
         isSuccess ? `정답 : ${answer}` : '----'
       }
       </header>
-      <section>
-        <input type='text' value={answer} onChange={handleAnswerChanged} disabled={isSuccess} />
-        {
-          isSuccess ? (
-            <button onClick={handleRetry}>다시하기</button>
-          ) : (
-            <button onClick={handleSubmit}>맞춰보기</button>
-          )
-        }
-      </section>
+      <form onSubmit={handleSubmit}>
+        <section>
+          <input type='text' value={answer} onChange={handleAnswerChanged} disabled={isSuccess} />
+          {
+            isSuccess ? (
+              <button onClick={handleRetry}>다시하기</button>
+            ) : (
+              <button onClick={handleSubmit}>맞춰보기</button>
+            )
+          }
+        </section>
+      </form>
       <Logs logs={logs} />
     </div>
   );
